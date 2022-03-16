@@ -27,7 +27,7 @@ def short(url):
 def index(request):
     global Base_count
     if request.POST:
-        print('index')
+        #print('index')
         form = forms.url_form(request.POST)
         if form.is_valid():
                 get_url = request.POST.get('url_data')
@@ -42,7 +42,7 @@ def index(request):
                         data = models.Shorturl.objects.create(short_url=short_url,original_url=get_url,create_date=date)
                         data.save()
                         Base_count +=1
-                        print('成功')
+                        #print('成功')
                         request.session['short_url'] = short_url
                         request.session['original_url'] = get_url
                         return HttpResponseRedirect('/result')                            
@@ -58,25 +58,25 @@ def index(request):
                     data = models.Shorturl.objects.create(short_url=short_url,original_url=get_url,create_date=date)
                     data.save()
                     Base_count +=1
-                    print('成功')
+                    #print('成功')
                     request.session['short_url'] = short_url
                     request.session['original_url'] = get_url
                     return HttpResponseRedirect('/result')
         else:
             get_url = False
-            print('False')
+            #print('False')
     else:
         form = forms.url_form()
     return render(request, 'index.html', locals())
 
 def custom_url(request):
     if request.POST:
-        print('custom')
+        #print('custom')
         form = forms.custom_form(request.POST)
         if form.is_valid():
             get_url = request.POST.get('url_data')
             word = request.POST.get('word')
-            print(word)
+            #print(word)
             if models.Shorturl.objects.filter(short_url=word).exists():
                 data = models.Shorturl.objects.filter(short_url=word).first()
                 now = timezone.datetime.now().replace(tzinfo=None)
@@ -88,7 +88,7 @@ def custom_url(request):
                     short_url = word
                     data = models.Shorturl.objects.create(short_url=short_url,original_url=get_url,create_date=date)
                     data.save()
-                    print('成功')
+                    #print('成功')
                     request.session['short_url'] = short_url
                     request.session['original_url'] = get_url
                     return HttpResponseRedirect('/result')                            
@@ -100,13 +100,13 @@ def custom_url(request):
                 short_url = word
                 data = models.Shorturl.objects.create(short_url=short_url,original_url=get_url,create_date=date)
                 data.save()
-                print('成功')
+                #print('成功')
                 request.session['short_url'] = short_url
                 request.session['original_url'] = get_url
                 return HttpResponseRedirect('/result')
         else:
             get_url = False
-            print('False')
+            #print('False')
     else:
         form = forms.custom_form()
     return render(request, 'custom.html', locals())

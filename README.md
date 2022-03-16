@@ -17,7 +17,7 @@
 首頁
 ![GITHUB]( https://i.imgur.com/HQHgesl.jpg "Homepage")
 結果頁面
-![GITHUB]( https://i.imgur.com/WoKfugf.jpg "Result")
+![GITHUB]( https://i.imgur.com/2v6dYMB.jpg "Result")
 自訂連結頁面
 ![GITHUB]( https://i.imgur.com/OJOz0Dv.jpg "Custom page")
 

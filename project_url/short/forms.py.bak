@@ -1,0 +1,35 @@
+from django.shortcuts import render
+from django.http import HttpResponse
+from datetime import datetime
+from .models import Shorturl
+
+import hashlib
+import base64
+
+# Create your views here.
+
+def short(url):
+    url = base64.b64encode(
+        hashlib.md5((url).encode('utf-8')).digest(), altchars=b"-_")[:6].decode("utf-8")
+    return url
+
+def getHttpStatusCode(url):
+    try:
+        request = requests.get(url)
+        httpStatusCode = request.status_code
+        return httpStatusCode
+    except requests.exceptions.HTTPError as e:
+        return e
+
+def index(request):
+    if 'url_data' in request.POST:
+        get_url = request.POST.get('url_data')
+        status = getHttpStatusCode(get_url)
+        if status != 200:
+            return HttpResponse("The url is not valid.")
+        print(get_url)
+        print(short(get_url))
+    else:
+        get_url = False
+        print('False')
+    return render(request, 'index.html', locals())
